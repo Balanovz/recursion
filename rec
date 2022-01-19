@@ -1,0 +1,43 @@
+/*
+Дано натуральное число n. Реализовать рекурсивную функцию, 
+возвращающую а) сумму нечетных цифр числа n; б) произведение цифр числа
+n, находящихся на нечетных позициях, считая справа.
+*/
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int sum = 0;
+//n = 15347 result == 7 + 3 + 5 + 1 = 16
+int odd_sum(const int& n) {
+	if (n > 0)
+		return n % 10 % 2 != 0 ? n % 10 + odd_sum(n / 10) : odd_sum(n / 10);
+	else return 0;
+}
+
+//n = 64253 result == 3 * 2 * 6 = 36
+int odd_mult(const int& n, int counter) {
+	if (n > 0)
+		return counter % 2 != 0 ? n % 10 * odd_mult(n / 10, ++counter) : odd_mult(n / 10, ++counter);
+	else return 1;
+}
+
+int main() {
+	int n;
+	cout << "Enter the value for n: ";
+	cin >> n;
+	
+	//example a)
+	int odd = odd_sum(n);
+	cout << "sum of odd numbers\t" << odd << endl;
+
+
+	//example b)
+	int counter = 1;
+	odd = odd_mult(n, counter);
+	cout << "multiplication of odd index numbers\t" << odd << endl;
+	
+
+	return 0;
+}
